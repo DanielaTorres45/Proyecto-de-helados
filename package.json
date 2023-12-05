@@ -9,7 +9,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "bootstrap": "5.3.2",
+    "bootstrap": "^5.3.2",
     "core-js": "^3.25.3",
     "nuxt": "^2.15.8",
     "sass": "^1.69.5",
