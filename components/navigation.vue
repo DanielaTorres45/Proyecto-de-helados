@@ -24,7 +24,6 @@
 #d2{
     text-align: center;
     padding: 15px;
-    border-radius: 10px;
     font-size: 40px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   }
