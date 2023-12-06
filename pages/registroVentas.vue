@@ -1,7 +1,7 @@
 <template>
 <div class="registro">
     <h1>Clientes</h1>
-    <table class="table table-danger">
+    <table class="table t.thead-light">
             <thead>
                 <th>Nº</th>
             <th>Nombre</th>
@@ -12,7 +12,6 @@
             <th>Ced Cliente</th>
             <th>Cantidad</th>
             <th>Img</th>
-            <th>Acciones</th>
             </thead>
             <tbody>
                 <tr v-for="venta,index in arrayVentaModificada">
@@ -21,17 +20,41 @@
                     <td>{{ venta.apellidos}}</td>
                     <td>{{ venta.telefono}}</td>
                     <td>{{new Date(venta.fechaVta).toLocaleString()}}</td>
-                    <td>{{venta.PrecioVta}}</td>
+                    <td>${{ parseInt(venta.PrecioVta).toLocaleString()}}</td>
                     <td>{{venta.cedCliente}}</td>
                     <td>{{venta.cantVta}}</td>
                     <td><img :src="venta.srcImg" alt="No se encontro" height="100" width="100"></td>
-                    <td>
-                        <button class="btn btn-danger" @click="eliminar(index)">Eliminar</button>
-                    </td>
                 </tr>
             </tbody>
-          </table>
-          
+    </table>
+    <table class="table table-info ">
+            <thead>
+                <th>Cantidad</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th> </th>
+            <th>Total</th>
+            <th>Cantidad Producto</th>
+            <th></th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{objTotal.cantidadF}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>${{objTotal.totalVenta.toLocaleString()}}</td>
+                    <td>{{objTotal.cantidadTotal}}</td>
+                    <td></td>
+                </tr>
+                
+            </tbody>
+    </table>
+         
 </div>
 </template>
 <script>
@@ -40,7 +63,12 @@ export default {
         return {
             arrayVentas: [],
             arrayCliente: [],
-            arrayVentaModificada: []
+            arrayVentaModificada: [],
+            objTotal : {
+                totalVenta: 0,
+                cantidadF: 0,
+                cantidadTotal: 0
+            }
         }
     },
     methods: {
@@ -66,7 +94,10 @@ export default {
                         this.arrayVentaModificada.push({
                             ...venta,
                             ...cliente,
-                        })
+                        });
+                        this.objTotal.cantidadF += 1;
+                        this.objTotal.totalVenta += parseInt(venta.PrecioVta);
+                        this.objTotal.cantidadTotal += parseInt(venta.cantVta);
                     }
                 })
             }); 
@@ -77,6 +108,6 @@ export default {
         this.arrayVentas = JSON.parse(localStorage.getItem('arrayVentasVeh'));
         this.arrayCliente = JSON.parse(localStorage.getItem('arrayClientes')); 
         this.cargarTabla();
-    }
+    },
 }
 </script>
